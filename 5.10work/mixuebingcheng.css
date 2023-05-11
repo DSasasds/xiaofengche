@@ -1,0 +1,122 @@
+/* .box{ */
+/* 弹性布局 */
+/* display: flex; */
+/* 靠左对齐 */
+/* justify-content: flex-start; */
+
+/* 靠右对齐 */
+/* justify-content: flex-end; */
+
+/* 弹性容器里内容居中 */
+/* justify-content: center; */
+
+/* 空白区域在弹性盒子之间 */
+/* justify-content: space-between; */
+
+/* 空白区域均匀分布在弹性盒子两侧，相对于弹性盒子左右margin */
+/* justify-content: space-around; */
+
+/* 弹性盒子与容器之间间距相等 */
+/* justify-content: space-evenly;
+}
+.father {
+    width: 600px;
+    height: 150px;
+    border: 2px solid #000;
+    margin: 100px auto;
+   弹性容器
+    display: flex;
+}
+.son1 {
+    flex: 1;
+    background-color: aqua;
+}
+.son2 {
+    flex: 2;
+    background-color: bisque;
+}
+
+.son3 {
+    flex: 1;
+    background-color: greenyellow;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#box {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: aquamarine;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+.layui-nav-item {
+    float: left;
+    line-height: 100px;
+    padding-left: 50px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.layui-nav-item .layui-nav-child {
+    display: none;
+
+}
+
+.layui-nav .layui-nav-item:hover .layui-nav-child {
+    display: block;
+}
+
+#conter {
+width: 100%;
+    height: 1200px;
+    background-color: blanchedalmond;
+    margin-top: 100px;
+    overflow: hidden
+}
+
+#box .layui-bg-cyan {
+    width: 100%;
+    height: 100px;
+    overflow: hidden
+}
+
+#box .layui-bg-cyan li {
+    margin-left: 30px;
+}
+
+#son1 {
+    width: 100%;
+   
+}
+
+#son2 {
+    width: 100%;
+    height: 90%;
+  
+}
+
+#tend {
+    height: 30%;
+    width: 100%;
+    background-color: rgb(143, 143, 37);
+    overflow: hidden
+}
+
+#son2 img {
+    float: left;
+    background-position: top right;
+}
