@@ -1,0 +1,12 @@
+div {
+    width: 100px;
+    height: 100px;
+    /* left: 600px; */
+    background: yellowgreen;
+    position: absolute;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

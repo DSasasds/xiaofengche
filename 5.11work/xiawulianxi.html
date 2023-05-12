@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打地鼠</title>
+    <link rel="stylesheet" href="xiawulianxi.css">
+</head>
+
+<body>
+
+    <div id="box">
+        <div id="box1">开始游戏</div>
+        <div id="box2">
+            <div id="son21">
+                <div class="niu">daojishi</div>
+                <div class="niu">defen</div>
+            </div>
+            <div id="son22">
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+                <div class="niu1"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var countdown = 60; // 60秒
+        var arr = []; // 随机数
+        var score = 0; // 分数
+        var seconds = 1000; // 时间
+        var timer; //  定时器
+         // 随机数
+         arrive();
+    function arrive() {
+      for (var c = 0; c < 4; c++) {
+        var RandomNumber = Math.floor(Math.random() * 9);
+        if (arr.indexOf(RandomNumber) == -1) {
+          arr[c] = RandomNumber;
+        } else {
+          c--;
+        }
+      }
+      tuslice();
+    }
+        //  循环图片
+        
+        function tuslice() {
+            var tu = "";
+            arr.sort((a, b) => {
+                return a - b;
+            });
+
+            for (let i in arr) {
+                if (i < 3) {
+                    $(".niu1")
+                        .eq(arr[i])
+                        .html(
+                            `<img src="./imgs/laoshu.png" alt="" class='slice'">`
+                        );
+                } else {
+                    $(".niu1")
+                        .eq(arr[i])
+                        .html(
+                            `<img src="./imgs/miao.png" alt="" class='slice'">`
+                        );
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
