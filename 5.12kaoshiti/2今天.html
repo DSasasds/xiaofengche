@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.2/echarts.common.js"></script>
+</head>
+<style>
+    #box {
+        width: 470px;
+        height: 300px;
+    }
+</style>
+
+<body>
+    <button onclick="btn1()">今天</button>
+      <button onclick="btn2()">昨天</button>
+      <button onclick="btn3()">近七日</button>
+      <button onclick="btn4()">近30天</button>
+    <div id="box"></div>
+    <script>
+        function btn2() {
+       
+            let chartDom = document.getElementById("box");
+            let myChart = echarts.init(chartDom);
+            let option;
+            option = {
+                tooltip: {},
+                legend: {
+                    data: ["PV", "UV"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: ["00.00", "02.00", "04.00", "06.00", "08.00", "10.00", "12.00"],
+                },
+                yAxis: {
+                    type: "value",
+                },
+                series: [
+                    {
+                        name: "PV",
+                        data: [5, 0, 12, 60, 200, 40, 13],
+                        type: "line",
+                        smooth: true,
+                    },
+                    {
+                        name: "UV",
+                        data: [],
+                        type: "line",
+                        smooth: true,
+                    },
+                ],
+            };
+            myChart.setOption(option);
+        }
+        function btn3() {
+ 
+            let chartDom = document.getElementById("box");
+            let myChart = echarts.init(chartDom);
+            let option;
+            option = {
+                tooltip: {},
+                legend: {
+                    data: ["PV", "UV"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: [
+                        "2023-04-30",
+                        "2023-05-01",
+                        "2023-05-02",
+                        "2023-05-03",
+                        "2023-05-04",
+                        "2023-05-05",
+                        "2023-05-06",
+                    ],
+                },
+                yAxis: {
+                    type: "value",
+                },
+                series: [
+                    {
+                        name: "PV",
+                        data: [5, 0, 12, 60, 600, 40, 13],
+                        type: "line",
+                        smooth: true,
+                    },
+                    {
+                        name: "UV",
+                        data: [20, 80, 20, 16, 100, 23, 23],
+                        type: "line",
+                        smooth: true,
+                    },
+                ],
+            };
+            myChart.setOption(option);
+        }
+        function btn4() {
+
+            let chartDom = document.getElementById("box");
+            let myChart = echarts.init(chartDom);
+            let option;
+            option = {
+                tooltip: {},
+                legend: {
+                    data: ["PV", "UV"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: [
+                        "2023-04-07",
+                        "2023-04-11",
+                        "2023-04-19",
+                        "2023-04-23",
+                        "2023-04-27",
+                        "2023-05-01",
+                        "2023-05-05",
+                    ],
+                },
+                yAxis: {
+                    type: "value",
+                    axisLine: { onZero: false },
+                    axisLabel: {
+                        formatter: "{value} k",
+                    },
+                    boundaryGap: false,
+                    data: ["0", "10"],
+                },
+                series: [
+                    {
+                        name: "PV",
+                        data: [5, 0, 12, 60, 1000, 40, 13],
+                        type: "line",
+                        smooth: true,
+                    },
+                    {
+                        name: "UV",
+                        data: [20, 80, 26, 16, 300, 23, 23],
+                        type: "line",
+                        smooth: true,
+                    },
+                ],
+            };
+            myChart.setOption(option);
+        }
+        function btn1() {
+
+            let chartDom = document.getElementById("box");
+            let myChart = echarts.init(chartDom);
+            let option;
+            option = {
+                tooltip: {},
+                legend: {
+                    data: ["PV", "UV"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: ["00.00", "02.00", "04.00", "06.00", "08.00", "10.00", "12.00"],
+                },
+                yAxis: {
+                    type: "value",
+                },
+                series: [
+                    {
+                        name: "PV",
+                        data: [5, 80, 12, 60, 0, 40, 13],
+                        type: "line",
+                        smooth: true,
+                    },
+                    {
+                        name: "UV",
+                        data: [],
+                        type: "line",
+                        smooth: true,
+                    },
+                ],
+            };
+            myChart.setOption(option);
+        }
+        let chartDom = document.getElementById("box");
+        let myChart = echarts.init(chartDom);
+        let option;
+        option = {
+            tooltip: {},
+            legend: {
+                data: ["PV", "UV"],
+            },
+            xAxis: {
+                type: "category",
+                data: ["00.00", "02.00", "04.00", "06.00", "08.00", "10.00", "12.00"],
+            },
+            yAxis: {
+                type: "value",
+            },
+            series: [
+                {
+                    name: "PV",
+                    data: [5, 80, 12, 60, 0, 40, 13],
+                    type: "line",
+                    smooth: true,
+                },
+                {
+                    name: "UV",
+                    data: [],
+                    type: "line",
+                    smooth: true,
+                },
+            ],
+        };
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

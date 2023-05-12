@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/echars/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="box" style="width:500px;height:300px"></div>
+    <div id="boxx1"></div>
+</body>
+<script>
+    const student = [
+        {
+            name: "陈静",
+            result: [
+                {
+                    date: "2023-3-31",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 60,
+                        },
+                        {
+                            name: "笔试",
+                            score: 0,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-4",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 35,
+                        },
+                        {
+                            name: "笔试",
+                            score: 85,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-11",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 65,
+                        },
+                        {
+                            name: "笔试",
+                            score: 0,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-18",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 75,
+                        },
+                        {
+                            name: "笔试",
+                            score: 65,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            name: "李泽",
+            result: [
+                {
+                    date: "2023-3-31",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 99,
+                        },
+                        {
+                            name: "笔试",
+                            score: 0,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-4",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 100,
+                        },
+                        {
+                            name: "笔试",
+                            score: 38,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-11",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 70,
+                        },
+                        {
+                            name: "笔试",
+                            score: 0,
+                        },
+                    ],
+                },
+                {
+                    date: "2023-4-18",
+                    subject: [
+                        {
+                            name: "机试",
+                            score: 92,
+                        },
+                        {
+                            name: "笔试",
+                            score: 50,
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+    function dianji() {
+        index = event.target.dataset.index
+        studentIndex=index
+        // 现在这个newArr就是点击当前人的数据，
+        // 你对这个数组进行操作让他显示到图表上
+        fun()
+    }
+
+    function getScore(studentIndex) {
+        let jishiD = [],
+            bishiD = [];
+        var res2 = student[studentIndex].result.map((item, index) => {
+            return item.subject.filter((item, index) => {
+                if (item.name == "机试") {
+                    jishiD.push(item.score)
+                    return jishiD
+                } else if (item.name == "笔试") {
+                    bishiD.push(item.score)
+                    return bishiD
+                }
+            })
+        })
+        return [
+            {
+                label: {
+                    show: true,
+                    position: "top",
+                },
+                data: jishiD,
+                name: "机试",
+                type: "bar",
+            },
+            {
+                label: {
+                    show: true,
+                    position: "top",
+                },
+                data: bishiD,
+                name: "笔试",
+                type: "bar",
+            },
+        ];
+    }
+    $(function () {
+        fun();
+        showList11();
+    })
+    var studentIndex = 0
+    function getXdata(studentIndex) {
+        let res = student[studentIndex].result.map((item, index) => {
+            return item.date;
+        });
+        console.log(res);
+        return res;
+    }
+    function fun() {
+        // 柱状图
+        // 基于准备好的dom，初始化echarts实例
+        echarts.init(document.getElementById('box')).dispose()  //清除上一个实例
+        var myBar = echarts.init(document.getElementById('box'));
+
+        // studentIndex = index
+        // 指定图表的配置项和数据
+        var barOption = {
+            title: {
+                text: `${student[studentIndex].name}的成绩`,
+            },
+            legend: {
+                data: ["机试", "笔试"]
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "shadow",
+                },
+                formatter: function (params) {
+                    let jishi = params[0];
+                    let bishi = params[1];
+                    return "成绩详细:" + "<br/>" + jishi.seriesName + ":" + jishi.value +
+                        "<br/>" + bishi.seriesName + ":" + bishi.value;
+                },
+            },
+            xAxis: {
+                type: 'category',
+                data: getXdata(studentIndex),
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: getScore(studentIndex),
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myBar.setOption(barOption);
+    }
+    function showList11() {
+        let html = "";
+        student.forEach((item, index) => {
+            html += `
+                <input type="button" value="${item.name}" class="one" onclick="dianji()" data-index="${index}">
+                `
+        });
+        $("#boxx1").html(html)
+    }
+</script>
+
+</html>
