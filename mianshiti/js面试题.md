@@ -1,4 +1,124 @@
                                           js面试题
+## 11.添加、删除、替换、插入到某个节点的方法（js、jq）
+        js：
+        Document.createELement('div'); //创建一个新的节点
+        appendChild()//添加
+        removeChild()//删除节点
+        insertBefore（插入节点，被插节点）//插入（前插后）
+        replaceChild（新节点,旧节点）//替换（前替换后）
+        jq：
+        append() （旧节点添加新节点后面）
+        appendTo() （新节点添加到旧节点后面）
+        prepend() （旧节点添加新节点的前面）
+        prependTo() （新节点添加到旧节点的前面）//添加
+        remove()（//清空）
+        empty()//删除
+        replaceWith（）//替换
+## 12.**JavaScript中的事件流模型**
+        冒泡事件流：
+        当触发一个节点的事件时，会从当前节点开始，依次触发其祖先节点的同类型事件，直到DOM根节点 。
+        
+        捕获事件流：
+        当触发一个节点的事件时，会从DOM根节点开始，依次触发其祖先节点的同类型事件，直到当前节点自身 。
+        
+        当使用addEventListener绑定事件，第三个参数设为true时表示事件捕获，除此之外的所有事件均为事件冒泡
+        例：（修改后面的true和false既可）
+        <div id="div1">
+        	111
+            <div id="div2">
+        		222
+                <div id="div3">
+        			333
+        		</div>
+            </div>
+        </div>
+        <script>
+        div1.addEventListener("click",function(){
+            console.log("div1 is 1 click");
+        },false);
+        div2.addEventListener("click",function(){
+            console.log("div2 is 22click");
+        },false);
+        div3.addEventListener("click",function(){
+            console.log("div3 is 333 click");
+        },false);
+## 13.**跨域问题是怎样产生的？** **解决方案有哪些？**
+        同源策略（协议名，域名，端口号（出于安全考虑））
+       Jsonp ，代理， cors，后端配置传 /api
+       1，20 ，融汇贯通，
+       2，数组去重，
+       3，实现防抖节流的代码案例
+
+## 14.*闭包有什么缺陷？**
+     答：
+     滥用闭包会造成内存泄漏，因为闭包中引用的的包裹函数中定义的变量永远不会     被释放，所以我们在必要的时候机试释放这个闭包函数（赋值为null）
+     注意：此说法不一定正确，因为 IE。IE 有 bug，IE 在我们使用完闭包之后，     依然回收不了闭包里面引用的变量。
+## 15**JavaScript中的本地对象、内置对象和宿主对象**（三星下）
+
+     本地对象：
+     简单来说，本地对象就是 ECMA-262（js） 定义的类（引用类型）。它们包     括：
+     Object, Function,Array,String,Boolean.Number,Date...等等
+     
+     内置对象：
+     其中Global和Math这两个对象又被称为“内置对象”，这两个对象在脚本程序初     始化时被创建，不必实例化这两个对象。
+     Global对象是ECMAScript中最特别的对象，因为实际上它根本不存在，但大家     要清楚，在ECMAScript中，不存在独立的函数，所有函数都必须是某个对象的     方法。类似于isNaN()、parseInt()和parseFloat()方法等
+
+     宿主对象：
+     浏览器对象有很多，如Window和Document等等。（所有 BOM 和 DOM 对象都是     宿主对象。）
+
+     自定义对象
+     顾名思义，就是开发人员自己定义的对象。JS允许使用自定义对象，使JS应用及     功能得到扩充
+
+## 16ajax 请求数据时get和post方式有什么区别**  
+
+
+       $.get() 方法使用GET方法来进行异步请求的。   
+
+       $.post() 方法使用POST方法来进行异步请求的。
+
+      get请求会将参数跟在URL后进行传递，get方式传输的数据大小不能超过2KB
+
+      而POST请求则是作为HTTP消息的实体内容发送给Web服务器的，这种传递是对用      户不可见的。
+
+      get方式传输的数据大小不能超过2KB 而POST要大的多
+
+      GET 方式请求的数据会被浏览器缓存起来，因此有安全问题。
+
+## 17**new操作符具体干了什么**
+
+     答
+    ①创建一-个空对象，并且this 变量引用该对象，同时还继承了该函数的原型。
+    
+    ②属性和方法被加入到this 引用的对象中。
+
+    ③新创建的对象由this
+## 18**form中的input可以设置为readonly和disable，请问2者有什么区别？**
+
+
+      readonly不可编辑，但可以选择和复制；值可以传递到后台
+      disabled不能编辑，不能复制，不能选择；值不可以传递到后台
+## 19**简述ajax 流程**
+      1)客户端产生js的事件
+      2)创建XMLHttpRequest对象
+      3)对XMLHttpRequest进行配置
+      4)通过AJAX引擎发送异步请求
+      5)服务器端接收请求并且处理请求，返回html或者xml内容
+      6)XML调用一个callback()处理响应回来的内容
+      7)页面局部刷新
+## 20，**js 数组常用方法**
+
+	   1.pop（） 删除并返回数组的最后一个元素
+       2.push()    表示向数组的末尾添加一个或多个元素
+       3.shift()    表示删除并返回数组的第一个元素
+       4.splice()   删除一个元素并且向删除的元素位置添加一个新元素
+       5.unshift()  表明向数组的开头添加一个元素或多个元素并且返回新的长度
+       6.sort()    表明对数组的元素进行排序，一般是升序排列
+       7.reverse()   表示颠倒数组中元素的顺序
+       8.toString()    表示把数组转化为字符串并返回结果
+       9.slice()    表示从某个已有的数组返回选定的元素
+       10.join()     把数组的所有元素放入一个字符串
+       11.indexOf(el)   从头（序号0）开始查找元素 
+       12.lastIndexOf(el)   从尾部（序号1）开始查找元素
 ## 1 .介绍JavaScript的数据类型
        值类型(基本类型)：字符串（String）、数字(Number)、布尔(Boolean)、对空（Null）、未定义（Undefined）、Symbol（独一无二的值）。
         引用数据类型：对象(Object)、数组(Array)、函数(Function)。
