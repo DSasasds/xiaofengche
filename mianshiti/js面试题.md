@@ -21,14 +21,14 @@
         Object.prototype.toString.call(Object)//"[object Function]"
         4. Array.isArray()
 
-     用于判断是否为数组。
+         用于判断是否为数组。
 
-     typeof运算符和instanceof运算符以及isPrototypeOf()方法的区别
-     typeof是一个运算符，用于检测数据的类型，比如基本数据类型null、undefined、string、number、boolean，以及引用数据类型object、function，但是对于正则表达式、日期、数组这些引用数据类型，它会全部识别为object
+         typeof运算符和instanceof运算符以及isPrototypeOf()方法的区别
+         typeof是一个运算符，用于检测数据的类型，比如基本数据类型null、undefined、string、number、boolean，以及引用数据类型object、function，但是对于正则表达式、日期、数组这些引用数据类型，它会全部识别为object
 
-     instanceof同样也是一个运算符，它就能很好识别数据具体是哪一种引用类型。它与isPrototypeOf的区别就是它是用来检测构造函数的原型是否存在于指定对象的原型链当中；
+         instanceof同样也是一个运算符，它就能很好识别数据具体是哪一种引用类型。它与isPrototypeOf的区别就是它是用来检测构造函数的原型是否存在于指定对象的原型链当中；
 
-     而isPrototypeOf是用来检测调用此方法的对象是否存在于指定对象的原型链中，所以本质上就是检测目标不同。
+         而isPrototypeOf是用来检测调用此方法的对象是否存在于指定对象的原型链中，所以本质上就是检测目标不同。
 
 ## 3 .NaN 是什么
      NaN 即非数值（Not a Number），NaN 属性用于引用特殊的非数字值，该属性指定的并不是不合法的数字。
@@ -45,20 +45,30 @@
      在添加事件时用addEventListener(event,fn,useCapture)方法，基中第3个参数useCapture是一个Boolean值，用来设置事件是在事件捕获时执行，还是事件冒泡时执行。
 
 ## 5 .如何阻止事件冒泡？
-     w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true。例如：
+     <!-- w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true。例如：
 
      window.event.cancelBubble = true；
-    e.stopPropagation();
+    e.stopPropagation(); -->
+      1.event.stopPropagation()方法
+      这是阻止事件的冒泡方法，不止事件向document上蔓延，但是默认事件任然会执行，当你调用这个方法的时候，如果点击一个连接，这个连接仍然会被打开
+
+     
+      3.return false;
+      这个方法比较暴力，他会同时阻止事件冒泡也会阻止默认事件，不仅阻止了事件往上冒泡，而且阻止了事件本身
 
 ## 6 .如何阻止默认事件？
      w3c的方法是e.preventDefault()，IE则是使用e.  returnValue = false，比如：
 
-     function stopDefault( e ) { 
+     <!-- function stopDefault( e ) { 
      if ( e && e.preventDefault )         
        e.preventDefault(); //IE中阻止函数器默认动作的方式  
       else          
        window.event.returnValue = false; 
-      }
+      } -->
+
+      2.event.preventDefault()方法
+      这是阻止默认事件的方法，调用此方法时，链接不会被打开，但是会发生冒泡，冒泡会传递到上一层的父元素
+
 
 ## 7 .谈谈this的理解
     1) this总是指向函数的直接调用者（而非间接调用者）
