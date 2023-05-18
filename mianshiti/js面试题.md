@@ -1,4 +1,91 @@
                                           js面试题
+## 21  **什么是宏任务，什么是微任务**
+         **宏任务和微任务都是异步任务在同步任务队列之后
+         而宏任务一般是:包括整体代码script, setTimeout, setInterval、 setlmmediate（node 独有）。
+         微任务:原生Promise(有些实现的promise将then方法放到了宏任务中)、
+         process.nextTick、Object.observe(已 废弃)记住就行了new.promise是宏任务。
+         执行顺序
+         微观任务先于宏观任务  
+## 22  **js 导致内存泄漏的情况**
+         大量使用全局变量
+         大量使用闭包()
+         清除DOM节点时，只清除节点，而没有删除事件
+         定时器不清除
+            
+## 23  **Es6有哪些新特性**
+         es2015
+        1) let声明变量和const声明常量，两个都有块级作用域
+        2)模板字符串字符串方法扩展（startsWith()  判断字符串是否以特定的字串开始，endsWith()   判断字符串是否以特定的字串结束，还有字符串拼接 `` 反引号）
+        3)数组扩展方法
+        4) ... 展开运算符;结构赋值[a,b]=[b,a]
+        5) class类和继承 //react
+        6) Promise 解诀异步回调async await，几种状态
+        7)新增数据类型map set symbol（数据类型）
+        8)模块化expot导出 import导入 
+        9>箭头函数
+
+## 24  **var let 和 const三者之间的区别**
+        const：必须初始化，而且不能更改
+        var : 定义的变量可以修改，如果不初始化会输出undefined，不会报错
+        let : 块级作用域，函数内部使用let定义后，对函数外部无影响。
+        var可以重复申明，let不可以   
+## 25  **使用箭头函数应该注意什么？（箭头函数和function的区别）**
+       （1）用了箭头函数，this就不是指向window 而是声明时的 外部环境
+       （2）箭头函数不可以使用arguments（参数的集合）对象
+        （3）箭头函数不能使用构造函数，也就是说不能使用new命令，否则会抛出一个错误   
+## 26  **Promise** **中reject** **和 catch** **处理上有什么区别**（三个状态）
+        reject是用来抛出异常，catch 是用来处理异常
+        reject是Promise的方法，而catch 是Promise 实例的方法
+        reject后的东西，一定会进入then中的第二个回调，如果then中没有写第二个回调，则进入catch
+        网络异常(比如断网)，会直接进入catch而不会进入then的第二个回调
+## 27  **请用一行代码实现去重**
+        var arr =[1,2,4,5,7,8,5,4,1,1,]
+        var set=[…new set(arr)]
+        var set=Array.from(new set(arr))
+
+        //Set 特性，类似于数组，但它的一大特性就是所有元素都是唯一的，没有重复。
+        我们可以利用这一唯一特性进行数组的去重工作。
+        //Array.from概念：从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例
+        实际上:将一个类数组对象或者可遍历对象转换成一个真正的数组。  
+## 28  **html5有哪些新特性？**
+        新特性：
+        \1. 拖拽释放(Drag and drop) API
+        \2. 语义化更好的内容标签（header,nav,footer,aside,article,section）
+        \3. 音频、视频API(audio,video)
+        \4. 画布(Canvas) API
+        \5. 地理(Geolocation) API
+        \6. 本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；
+        \7. sessionStorage 的数据在浏览器关闭后自动删除
+        \8. 表单控件，calendar、date、time、email、url、search  
+        \9. 新的技术webworker, websocket, Geolocation  
+## 29  canvas 和svg的区别
+        canvas:
+
+        依赖分辨率
+        不支持事件处理器
+        弱的文本渲染能力能够以 .png 或 .jpg 格式保存结果图像
+        最适合图像密集型的游戏，其中的许多对象会被频繁重绘
+
+        svg：
+
+        不依赖分辨率
+        支持事件处理器
+        最适合带有大型渲染区域的应用程序（比如谷歌地图）
+        复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）不适合游戏应用  
+## 30   **隐藏也元素的方式**
+        1.display 属性display: none;
+        2.hidden 属性<div hidden></div>
+        利用 position 和 盒模型 将元素移出可视区范围position:absolute;
+        left: -99999px;
+        3.利用 transfrom，实现缩放，移动，旋转transform: scale(0);
+        height: 0;
+        .设置其大小为0height: 0;width: 0; font-size: 0;或者overflow:hidden;
+        4.设置透明度为0 opacity: 0;
+        5.visibility属性 visibility: hidden;
+        6.层级覆盖，z-index 属性position: relative;z-index: -999;
+        7.clip-path 裁剪 clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+          
+
 ## 11.添加、删除、替换、插入到某个节点的方法（js、jq）
         js：
         Document.createELement('div'); //创建一个新的节点
@@ -56,7 +143,7 @@
 　　   2.由于闭包会持有外部变量的引用，因此在使用闭包时需要小心，以避免出现意外的副作用或不良影响。
 
 　　   3.闭包的性能不如普通函数，因为它需要在每次调用时查找作用域链（赋值为null）
-       注意：此说法不一定正确，因为 IE。IE 有 bug，IE 在我们使用完闭包之后，依然回收不了闭包里面引用的变量。
+
 ## 15 **JavaScript中的本地对象、内置对象和宿主对象**（三星下）
 
      本地对象：
@@ -65,7 +152,8 @@
      
      内置对象：
      其中Global和Math这两个对象又被称为“内置对象”，这两个对象在脚本程序初始化时被创建，不必实例化这两个对象。
-     Global对象是ECMAScript中最特别的对象，因为实际上它根本不存在，但大家要清楚，在ECMAScript中，不存在独立的函数，所有函数都必须是某个对象的方法。类似于isNaN()、parseInt()和parseFloat()方法等
+     Global对象是ECMAScript中最特别的对象，因为实际上它根本不存在，但大家要清楚，在ECMAScript中，不存在独立的函数，
+     所有函数都必须是某个对象的方法。类似于isNaN()、parseInt()和parseFloat()方法等
 
      宿主对象：
      浏览器对象有很多，如Window和Document等等。（所有 BOM 和 DOM 对象都是宿主对象。）
