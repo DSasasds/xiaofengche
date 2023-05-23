@@ -1,4 +1,89 @@
                                           js面试题
+## 51  __proto__与prototype
+        在4.new操作符中相信有人对于function Base(){放了一堆方法}; obj.__proto__ = Base.prototype;不理解，其实这部分也是JavaScript中的原型链知识点、非常重要，一句话总结 prototype是函数才有 的属性实际使用时有一些组件或整个项目常用的方法会放在里面；而 __proto__是每个对象都有的属性 (但是万物皆对象，所以__proto__谁都有)。
+## 52  防抖与节流
+       重点理解： 关于防抖节流的应用，其实在实际应用中发生滚动事件、input事件、页面resize事件等较常遇到，
+       ️防抖含义是对于短时间内连续触发的事件，让某个时间期限内，事件处理函数只执行一次；
+       节流含义是对于短时间内连续触发的事件，让某个时间期限内，事件处理函数每定期执行一次；
+       防抖和节流的区别： 防抖是将多次执行变为最后一次执行，节流是将多次执行变为每隔一段时间执行。
+## 53  eval 是做什么的
+       它的功能是将对应的字符串解析成 JS 并执行，应该避免使用 JS，因为非常消耗性能（2 次，一次解析成 JS，一次执行）
+## 54  cache-control 的值有哪些
+       cache-control 是一个通用消息头字段被用于 HTTP 请求和响应中，通过指定指令来实
+       现缓存机制，这个缓存指令是单向的，常见的取值有 private、no-cache、max-age、
+       must-revalidate 等，默认为 private。
+## 55  如何理解前端模块化
+       前端模块化就是复杂的文件编程一个一个独立的模块，比如 JS 文件等等，分成独立的
+       模块有利于重用（复用性）和维护（版本迭代），这样会引来模块之间相互依赖的问
+       题，所以有了 commonJS 规范，AMD，CMD 规范等等，以及用于 JS 打包（编译等处理）
+       的工具 webpack
+## 56  webpack 用来干什么的
+      webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当
+      webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其
+      中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。 
+## 57  img iframe script 来发送跨域请求有什么优缺点？
+      iframe
+
+      优点：跨域完毕之后DOM操作和互相之间的JavaScript调用都是没有问题的
+
+      缺点：1.若结果要以URL参数传递，这就意味着在结果数据量很大的时候需要分割传递，巨烦。2.还有一个是iframe本身带来的，母页面和iframe本身的交互本身就有安全性限制。
+
+      script
+
+      优点：可以直接返回json格式的数据，方便处理
+
+      缺点：只接受GET请求方式
+
+      图片ping
+
+      优点：可以访问任何url，一般用来进行点击追踪，做页面分析常用的方法
+
+      缺点：不能访问响应文本，只能监听是否响应
+## 58  分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景
+      结构：
+      display:none: 会让元素完全从渲染树中消失，渲染的时候不占据任何空间, 不能点击，
+      visibility: hidden:不会让元素从渲染树消失，渲染元素继续占据空间，只是内容不可见，不能点击
+      opacity: 0: 不会让元素从渲染树消失，渲染元素继续占据空间，只是内容不可见，可以点击
+
+      继承：
+      display: none和opacity: 0：是非继承属性，子孙节点消失由于元素从渲染树消失造成，通过修改子孙节点属性无法显示。
+      visibility: hidden：是继承属性，子孙节点消失由于继承了hidden，通过设置visibility: visible;可以让子孙节点显式。
+
+      性能：
+      displaynone : 修改元素会造成文档回流,读屏器不会读取display: none元素内容，性能消耗较大
+      visibility:hidden: 修改元素只会造成本元素的重绘,性能消耗较少读屏器读取visibility: hidden元素内容
+      opacity: 0 ：修改元素会造成重绘，性能消耗较少
+
+      联系：它们都能让元素不可见
+## 59  display,float,position 的关系
+      1.如果display为 none，那么 position 和 float 都不起作用，这种情况下元素不产生框
+
+      2.否则，如果 position 值为 absolute 或者 fixed，框就是绝对定位的，float 的计算值为 none，display 根据下面的表格进行调整。
+
+      3.否则，如果 float 不是 none，框是浮动的，display 根据下表进行调整
+
+      4.否则，如果元素是根元素，display 根据下表进行调整
+
+      5.其他情况下 display 的值为指定值 总结起来：绝对定位、浮动、根元素都需要调整display
+## 60  下面代码的输出是什么?
+
+       (() => {
+         let x, y;
+         try {
+           throw new Error();
+         } catch (x) {
+           (x = 1), (y = 2);
+           console.log(x);
+         }
+         console.log(x);
+         console.log(y);
+       })();
+
+
+        参考答案:
+        1 
+        undefined
+        2
 ## 41  什么时候使用git status
         git status命令用于显示工作目录和暂存区的状态。
         可以在任何时候使用 git status 来检查当前 Git 仓库的状态。它可以告诉你哪些文件已更改但尚未提交到仓库，哪些文件已暂存并准备提交，以及哪些文件尚未跟踪。这对于确保你提交的内容是正确和最新的非常有用。
@@ -367,11 +452,11 @@
          而isPrototypeOf是用来检测调用此方法的对象是否存在于指定对象的原型链中，所以本质上就是检测目标不同。
 
 ## 3 .NaN 是什么
-     NaN 即非数值（Not a Number），NaN 属性用于引用特殊的非数字值，该属性指定的并不是不合法的数字。
+         NaN 即非数值（Not a Number），NaN 属性用于引用特殊的非数字值，该属性指定的并不是不合法的数字。
 
-     NaN 属性 与 Number.Nan 属性相同。
+          NaN 属性 与 Number.Nan 属性相同。
 
-     提示： 请使用 isNaN() 来判断一个值是否是数字。原因是 NaN 与所有值都不相等，包括它自己。
+          提示： 请使用 isNaN() 来判断一个值是否是数字。原因是 NaN 与所有值都不相等，包括它自己。
 
 ## 4 .什么是事件代理/事件委托？
      冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。
@@ -381,10 +466,10 @@
      在添加事件时用addEventListener(event,fn,useCapture)方法，基中第3个参数useCapture是一个Boolean值，用来设置事件是在事件捕获时执行，还是事件冒泡时执行。
 
 ## 5 .如何阻止事件冒泡？
-     <!-- w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true。例如：
+      <!-- w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true。例如：
 
-     window.event.cancelBubble = true；
-    e.stopPropagation(); -->
+      window.event.cancelBubble = true；
+      e.stopPropagation(); -->
       1.event.stopPropagation()方法
       这是阻止事件的冒泡方法，不止事件向document上蔓延，但是默认事件任然会执行，当你调用这个方法的时候，如果点击一个连接，这个连接仍然会被打开
 
@@ -407,9 +492,9 @@
 
 
 ## 7 .谈谈this的理解
-    1) this总是指向函数的直接调用者（而非间接调用者）
+     1) this总是指向函数的直接调用者（而非间接调用者）
 
-    2) 如果有new关键字，this指向new出来的那个对象
+     2) 如果有new关键字，this指向new出来的那个对象
 
      3) 在事件中，this指向目标元素，特殊的是IE的attachEvent中的this总是指向全局对象window。
 ## 8 .call，apply，bind的区别
