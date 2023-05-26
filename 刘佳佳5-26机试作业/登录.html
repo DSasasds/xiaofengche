@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../common/layui/css/layui.css">
+    <script src="../common/layui/layui.js"></script>
+    <script src="../common/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="../common/swiper/swiper-bundle.min.css">
+    <script src="../common/swiper/swiper-bundle.min.js"></script>
+</head>
+<style>
+    .loading {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("http://wimg.588ku.com/gif/22/01/05/56d5d8f39884ab8dab89085a5a8f3777.gif");
+        background-size: 100%;
+        opacity: 1;
+        transition: opacity 3s ease-in-out;
+    }
+
+    .loading:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-image: url("https://p2.ssl.qhimgs1.com/sdr/400__/t019246bfc207dfe618.jpg");
+        background-size: 100%;
+        /*  border: 2px solid #3498db; */
+        border-top: 2px solid transparent;
+        border-radius: 25px;
+        animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+</style>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .layui-form {
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* //  https://img.soogif.com/tW1phx9gu7xWcMbZC8LvaJgaVfnyewTl.gif */
+        background: url("https://img95.699pic.com/photo/40140/6613.gif_wh860.gif");
+        background-size: 100%;
+    }
+
+    .demo-login-container {
+        width: 320px;
+        padding: 30px;
+        margin: 150px auto 0;
+        background-color: rgb(210, 210, 210);
+        border-radius: 25px;
+        opacity: 0.9;
+    }
+
+    .demo-login-other .layui-icon {
+        position: relative;
+        display: inline-block;
+        margin: 0 2px;
+        top: 0px;
+        font-size: 26px;
+    }
+</style>
+<style>
+    html,
+    body {
+        position: relative;
+        height: 100%;
+    }
+
+    body {
+
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .swiper {
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #denglu {
+        display: inline-block;
+        width: 100%;
+        height: 37px;
+    }
+</style>
+
+<div class="loading"></div>
+
+<form class="layui-form">
+    <div class="demo-login-container">
+        <div class="layui-form-item">
+            <div class="layui-input-wrap">
+                <div class="layui-input-prefix">
+                    <i class="layui-icon layui-icon-username"></i>
+                </div>
+                <input type="text" name="username" value="" lay-verify="required" placeholder="用户名" lay-reqtext="请填写用户名"
+                    autocomplete="off" class="layui-input" lay-affix="clear">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-wrap">
+                <div class="layui-input-prefix">
+                    <i class="layui-icon layui-icon-password"></i>
+                </div>
+                <input type="password" name="password" value="" lay-verify="required" placeholder="密   码"
+                    lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-row">
+                <div class="layui-col-xs7">
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-vercode"></i>
+                        </div>
+                        <input type="text" name="captcha" value="" lay-verify="required" placeholder="验证码"
+                            lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                    </div>
+                </div>
+                <div class="layui-col-xs5">
+                    <div style="margin-left: 10px;">
+                        <img src="https://www.oschina.net/action/user/captcha"
+                            onclick="this.src='https://www.oschina.net/action/user/captcha?t='+ new Date().getTime();">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+            <a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login"><a id="denglu"
+                    href="主页.html">登录</a></button>
+        </div>
+        <div class="layui-form-item demo-login-other">
+            <label>社交账号登录</label>
+            <span style="padding: 0 21px 0 6px;">
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed;"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
+            </span>
+            或 <a href="#reg">注册帐号</a>
+        </div>
+    </div>
+</form>
+<!-- <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://img.soogif.com/FWjxTDkiAwZRBxvEK2Po2X0UsSA0pomO.gif" alt=""
+                class="" /></div>
+        <div class="swiper-slide"><img src="https://img.soogif.com/mJuypQEcyRbMZyIVC4b6aYv3l8B5BmTy.gif" alt=""
+                class="" /></div>
+        <div class="swiper-slide"><img src="https://img95.699pic.com/photo/40144/1975.gif_wh860.gif" alt="" class="" />
+        </div>
+        <div class="swiper-slide"><img
+                src="https://i0.hdslb.com/bfs/article/7bb9ade05252fad2295eee0fd9972a7495d311e1.jpg@942w_531h_progressive.webp"
+                alt="" class="" /></div>
+    </div>
+</div> -->
+
+<body>
+    <script>
+        window.onload = function () {
+            var loading = document.querySelector(".loading");
+            loading.style.opacity = 0;
+            setTimeout(function () {
+                loading.style.display = "none";
+            }, 3000);
+        };
+    </script>
+    <script>
+        // layui.use(function () {
+        //     var form = layui.form;
+        //     var layer = layui.layer;
+        //     // 提交事件
+        //     form.on('submit(demo-login)', function (data) {
+        //         var field = data.field; // 获取表单字段值
+        //         // if(field.captcha)
+        //         // 显示填写结果，仅作演示用
+        //         layer.alert(JSON.stringify(field), {
+        //             title: '当前填写的字段值'
+        //         });
+        //         // 此处可执行 Ajax 等操作
+        //         console.log(field.captcha);
+        //         // …
+        //         return false; // 阻止默认 form 跳转
+        //     });
+        // });
+
+
+    </script>
+    <!-- <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            slidesPerView: 1,
+            centeredSlides: true,
+            autoplay: {
+                delay: 8000,
+                disableOnInteraction: false,
+            },
+
+        });
+    </script> -->
+
+    <body>
+
+
+</html>

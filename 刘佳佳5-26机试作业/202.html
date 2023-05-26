@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+</head>
+<style>
+  /* #main{
+        width: 600px;
+        height: 400px;
+    } */
+  .sun2 {
+    width: 100%;
+    height: 10PX;
+  }
+
+  .qw1 {
+    background-color: rgb(255, 255, 255);
+    width: 347px;
+    height: 100px;
+    float: left;
+    display: flex;
+    border-radius: 8px;
+  }
+
+  #xia21 {
+    width: 97%;
+    margin-top: 100PX;
+    height: 500PX;
+    background-color: rgb(255, 255, 255);
+  }
+
+
+  .sw {
+    width: 100px;
+  }
+
+  .right {
+    margin: auto 30px;
+  }
+
+  .left {
+    margin-top: 10px;
+    margin-left: 120px;
+  }
+
+  .qw1:hover {
+    margin-top: -10px;
+
+  }
+
+  strong {
+    color: gray;
+    font-size: 16px;
+  }
+
+  b {
+    font-size: 16px;
+  }
+</style>
+
+<body>
+  <!-- <div id="main"></div> -->
+  <div class="sun2">
+    <div class="qw1" style="margin-right: 80px;" onclick="btn1()">
+      <div class="right sw">
+        <img src="./img/用户.png">
+      </div>
+      <div class="left sw">
+        <strong>用户登录量</strong>
+        <br />
+        <br />
+        <b>33</b>
+      </div>
+    </div>
+    <div class="qw1" style="margin-right: 80px; " onclick="btn2()">
+      <div class="right sw">
+        <img src="./img/高德.png">
+      </div>
+      <div class="left sw">
+        <strong>接口请求量</strong>
+        <br />
+        <br />
+        <b>194</b>
+      </div>
+    </div>
+    <div class="qw1" onclick="btn3()">
+      <div class="right sw">
+        <img src="./img/坐标图标系列.png">
+      </div>
+      <div class="left sw">
+        <strong>ip登录量</strong>
+        <br />
+        <br />
+        <b>3</b>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <button class="sa11" style="margin-left:90px;">今天</button>
+  <button class="sa11">昨天</button>
+  <button class="sa11">近7天</button>
+  <button class="sa11" onclick="btn4()">近30天</button> -->
+  <div id="xia21"></div>
+  </div>
+  <script>
+    function btn2() {
+      let chartDom = document.getElementById("xia21");
+      let myChart = echarts.init(chartDom);
+      let option;
+      option = {
+        tooltip: {},
+        legend: {
+          datas: ["PV", "PC"],
+        },
+        xAxis: {
+          type: "category",
+          datas: ["星期五", "星期六", "星期天", "星期一", "星期二", "星期三", "今天"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "PV",
+            data: [52, 52, 85, 20, 159, 20, 69],
+            type: "line",
+            smooth: true,
+          },
+          {
+            name: "PC",
+            data: [53, 56, 159, 52, 435, 21, 156],
+            type: "line",
+            smooth: true,
+          },
+        ],
+      };
+      myChart.setOption(option);
+    }
+    function btn3() {
+      let chartDom = document.getElementById("xia21");
+      let myChart = echarts.init(chartDom);
+      let option;
+      option = {
+        tooltip: {},
+        legend: {
+          datas: ["PV", "PC"],
+        },
+        xAxis: {
+          type: "category",
+          datas: ["星期五", "星期六", "星期天", "星期一", "星期二", "星期三", "今天"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "PV",
+            data: [52, 123, 25, 159, 20, 425, 130],
+            type: "line",
+            smooth: true,
+          },
+          {
+            name: "PC",
+            data: [300, 477, 45, 60, 259, 52, 20],
+            type: "line",
+            smooth: true,
+          },
+        ],
+      };
+      myChart.setOption(option);
+    }
+
+    function btn1() {
+
+      let chartDom = document.getElementById("xia21");
+      let myChart = echarts.init(chartDom);
+      let option;
+      option = {
+        tooltip: {},
+        legend: {
+          datas: ["PV", "PC"],
+        },
+        xAxis: {
+          type: "category",
+          datas: ["星期五", "星期六", "星期天", "星期一", "星期二", "星期三", "今天"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "PV",
+            data: [52, 52, 52, 78, 286, 54, 33],
+            type: "line",
+            smooth: true,
+          },
+          {
+            name: "PC",
+            data: [245, 45, 45, 40, 96, 253, 43],
+            type: "line",
+            smooth: true,
+          },
+        ],
+      };
+      myChart.setOption(option);
+    }
+    let chartDom = document.getElementById("xia21");
+    let myChart = echarts.init(chartDom);
+    let option;
+    option = {
+      tooltip: {},
+      legend: {
+        datas: ["PV", "PC"],
+      },
+      xAxis: {
+        type: "category",
+        datas: ["星期五", "星期六", "星期天", "星期一", "星期二", "星期三", "今天"],
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          name: "PV",
+          data: [75, 45, 14, 658, 245, 44, 175],
+          type: "line",
+          smooth: true,
+        },
+        {
+          name: "PC",
+          data: [30, 47, 45, 60, 50, 256, 75],
+          type: "line",
+          smooth: true,
+        },
+      ],
+    };
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>

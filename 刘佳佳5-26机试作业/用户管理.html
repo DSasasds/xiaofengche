@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../common/jquery-3.6.1.min.js"></script>
+    <script src="../common/echars/echarts.min.js"></script>
+    <link rel="stylesheet" href="../common/layui/css/layui.css">
+    <script src="../common/layui/layui.js"></script>
+    <title>用户管理</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: rgb(230, 230, 230);
+        width: 100%;
+        height: 100%;
+    }
+
+    button {
+        height: 40px;
+        padding: 10px 20px;
+        border: none;
+        margin: 5px;
+        background-color: rgb(182, 194, 203);
+        border-radius: 10px;
+    }
+
+    #remo {
+        background-color: #2f90b9;
+        color: white;
+    }
+
+    #bianji {
+        background-color: rgb(180, 72, 33);
+        color: white;
+    }
+
+    table {
+        width: 100%;
+        height: 660px;
+    }
+
+    #top {
+        float: left;
+        line-height: 80px;
+        width: 98%;
+        height: 80px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    /* #left {
+        float: left;
+        width: 18%;
+        height: 665px;
+        background-color: rgb(255, 255, 255);
+    } */
+
+    #right {
+        float: left;
+        width: 98%;
+        height: 785px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    form {
+        width: 800px;
+        height: 270px;
+        border: 1px solid aqua;
+        position: absolute;
+        top: 50%;
+        border-radius: 15px;
+        margin-top: -200px;
+        margin-left: 200px;
+        display: none;
+        text-align: center;
+        line-height: 25px;
+        background-color: rgb(223, 225, 217);
+        padding: 15px;
+    }
+
+    thead {
+        width: 100%;
+        height: 60px;
+        background-color: #619ac3;
+    }
+
+    tbody tr {
+        width: 100%;
+        height: 50px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    input {
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+</style>
+
+<body>
+    <form name="form">
+        <h2 id="h2">添加学生</h2>
+        账号：<input type="text" name="name" id="name">
+        用户名：<input type="text" name="test" id="test"><br><br>
+        电话：<input type="text" name="write" id="write">
+        性别：<input type="text" name="test2" id="test2"><br><br>
+        邮箱：<input type="text" name="test1" id="test1"><br><br>
+
+        <button onclick="queding()" id="save-btn">提交</button>
+        <button onclick="quxiao()" id="qu-btn">取消</button>
+    </form>
+    <div id="top">
+        <!-- <input input type="text" name="juese" id="name" style="margin-left: 30px;" placeholder="部门名称，支持模糊搜索"> -->
+        <input input type="text" name="name" id="input" style="margin-left: 30px;margin-right: 20px;"
+            placeholder="请输入账号">账号
+        <!-- <input input type="text" name="test" id="name"style="margin-left: 30px;" placeholder="用户名，支持模糊搜索">用户名 -->
+
+    </div>
+    <!-- <div id="left">
+        <ul>
+            <li>集团
+                <ul>
+                    <li>深圳分公司
+                        <ul>
+                            <li>深圳财务部</li>
+                            <li>深圳软件部</li>
+                            <li>深圳人事部</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>北京分公司
+                        <ul>
+                            <li>北京运维部</li>
+                        </ul>
+                    </li>
+                    <li>上海分公司</li>
+                    <li>广州分公司</li>
+                </ul>
+            </li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div> -->
+    <div id="right">
+        <button id="sousuo" style="background-color:#619ac3 ;" onclick="sou()">搜索</button>
+        <button id="chongzhi" style="background-color:#428675 ;">重置</button><br />
+        <button id="xinzeng" style="background-color:#2f90b9 ;">新增</button>
+        <button id="daochu" style="background-color:#e7a23f ;">导出</button>
+        <table border="1" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>账号</th>
+                    <th>用户名</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>性别</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const arr = [{
+            name: 'user0',
+            test: '用户0',
+            write: 15366666666,
+            test1: "user0@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        },
+        {
+            name: 'user1',
+            test: '用户1',
+            write: 15366666666,
+            test1: "user1@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user2',
+            test: '用户2',
+            write: 15366666666,
+            test1: "user2@163.com",
+            test2: "女",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user3',
+            test: '用户3',
+            write: 15366666666,
+            test1: "user3@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user4',
+            test: '用户4',
+            write: 15366666666,
+            test1: "user4@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user5',
+            test: '用户5',
+            write: 15366666666,
+            test1: "user5@163.com",
+            test2: "女",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user6',
+            test: '用户6',
+            write: 15366666666,
+            test1: "user6@163.com",
+            test2: "女",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user7',
+            test: '用户7',
+            write: 15366666666,
+            test1: "user7@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user8',
+            test: '用户8',
+            write: 15366666666,
+            test1: "user8@163.com",
+            test2: "女",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user9',
+            test: '用户9',
+            write: 15366666666,
+            test1: "user9@163.com",
+            test2: "男",
+            write1: "2020-11-20 10:02",
+        }, {
+            name: 'user10',
+            test: '用户10',
+            write: 15366666666,
+            test1: "user10@163.com",
+            test2: "女",
+            write1: "2020-11-20 10:02",
+        },
+        ];
+        const h2title = document.querySelector("h2");
+        const saveBtn = document.querySelector("#save-btn");
+        (function () {
+            showList(arr);
+        })();
+        //新增
+        $("#right").on("click", "#xinzeng", function () {
+            $('form').css('display', 'block')
+            const a = 1;
+            h2title.innerHTML = "添加";
+        });
+        //重置
+        $("#right").on("click", "#chongzhi", function () {
+            window.location.reload()
+        });
+        //导出
+        $("#right").on("click", "#daochu", function () {
+
+            form.reset()
+        });
+        //删除
+        $("table").on("click", "#remo", function () {
+            event.preventDefault();
+            if (confirm('确定删除吗？')) {
+                $(this).parent("td").parent("tr").remove();
+            }
+        });
+        //修改
+        $("table").on("click", "#bianji", function () {
+            event.preventDefault();
+            $('form').css('display', 'block')
+            index = event.target.dataset.index;
+            h2title.innerHTML = "修改";
+            arr.splice(index, 1)
+            const carform = document.getElementsByName("form")[0]
+            const tbody = document.getElementsByName("tbody")[0]
+            carform.name.value = arr[index].name;
+            carform.test.value = arr[index].test;
+            carform.write.value = arr[index].write;
+            carform.test1.value = arr[index].test1;
+            carform.test2.value = arr[index].test2;
+            tbody.write1.value = arr[index].write1;
+            form.reset()
+        });
+        //取消
+        function quxiao() {
+            event.preventDefault();
+            $('form').css('display', 'none')
+            form.reset()
+        }
+        // //添加数据
+        let form = document.querySelector('form')
+        function queding() {
+            event.preventDefault()
+            let name = $("#name").val()
+            let test = $("#test").val()
+            let write = $("#write").val()
+            let test1 = $("#test1").val()
+            let test2 = $("#test2").val()
+            var obj = {
+                name: name,
+                test: test,
+                write: write,
+                test1: test1,
+                test2: test2,
+                write1: getNowTime(),
+            }
+            arr.unshift(obj)
+            $('form').css('display', 'none')
+            showList()
+            form.reset()
+        }
+        //搜索
+        function sou() {
+            let newarr = arr.filter((item, index) => {
+                return item.name.includes($("#input").val());
+            });
+            tabeStyle(newarr);
+        }
+        function tabeStyle(res = arr) {
+            let html = "";
+            res.forEach((item, index) => {
+                html += `
+                <tr>
+                <td>${index}</td>
+                <td>${item.name}</td>
+                <td>${item.test}</td>
+                <td>${item.write}</td>
+                <td>${item.test1}</td>
+                <td>${item.test2}</td>
+                <td>${item.write1}</td>
+                <td>
+                    <button id="remo">删除</button>
+                    <button id="bianji"data-index="${index}">修改</button>
+                </td>
+                         </tr>`;
+            });
+            $("tbody").html(html);
+        }
+        tabeStyle(arr);
+
+        //渲染
+        function showList() {
+            let html = "";
+            arr.forEach((item, index) => {
+                html += `<tr>
+                <td>${index}</td>
+                <td>${item.name}</td>
+                <td>${item.test}</td>
+                <td>${item.write}</td>
+                <td>${item.test1}</td>
+                <td>${item.test2}</td>
+                <td>${item.write1}</td>
+                <td>
+                    <button id="remo">删除</button>
+                    <button id="bianji"data-index="${index + 1}">修改</button>
+                </td>
+                         </tr>`;
+            });
+            $("#tbody").html(html);
+        }
+        const getNowTime = () => {
+            let date = new Date(+new Date());
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+            return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
+        }
+    </script>
+</body>
+
+</html>

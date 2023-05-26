@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务监控</title>
+    <script src="../common/jquery-3.6.1.min.js"></script>
+    <script src="../common/echars/echarts.min.js"></script>
+    <link rel="stylesheet" href="../common/layui/css/layui.css">
+    <script src="../common/layui/layui.js"></script>
+    <style>
+        #box {
+            width: 99.9%;
+            height: 100%;
+        }
+
+        #top0 {
+            width: 100%;
+            display: flex;
+            height: 100px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #top {
+            width: 100%;
+            display: flex;
+            height: 450px;
+            margin-bottom: 30px;
+        }
+
+        #conter {
+            width: 100%;
+            height: 450px;
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        #button {
+            width: 100%;
+            display: flex;
+            height: 450px;
+
+        }
+
+        #right1,
+        #right2 {
+            width: 36%;
+            height: 100%;
+            margin-right: 4%;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #left1,
+        #left2 {
+            width: 60%;
+            height: 100%;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #right3 {
+            width: 30%;
+            height: 100%;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #left3 {
+            width: 66%;
+            height: 100%;
+            margin-left: 4%;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+
+
+        #main,
+        #main1,
+        #main2,
+        #main3,
+        #main4,
+        #main5 {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<div id="box">
+    <div id="top0">
+        <ul style="width: 95%; height: 95%;margin-left: 2.5%;">
+            <li
+                style="width: 100%; height: 40px; line-height: 40px;border-bottom: 1px rgb(184, 184, 184) solid;display: flex;">
+                <span style="width:10%;display: inline-block;">
+                    java版本
+                </span>
+                <span style="width:40%;display: inline-block;">
+                    1.8.0_171
+                </span>
+                <span style="width:10%;display: inline-block;">
+                    jvm名称
+                </span>
+                <span style="width: 40%;display: inline-block;">
+                    Java HotSpot (TM) 64 Bit Server VM
+                </span>
+            </li>
+            <li
+                style="width: 100%; height: 40px; line-height: 40px;border-bottom: 1px rgb(184, 184, 184) solid;display: flex;">
+                <span style="width:10%;display: inline-block;">
+                    ip
+                </span>
+                <span style="width:40%;display: inline-block;">
+                    172.17.16.10
+                </span>
+                <span style="width:10%;display: inline-block;">
+                    运行时间
+                </span>
+                <span style="width: 40%;display: inline-block;">
+                    527天 11小时 0分 48秒
+                </span>
+            </li>
+            <!-- <li style="width: 100%; height: 40px; line-height: 40px;border-bottom: 1px black solid;">
+                <span style="width:10%;">
+
+                </span>
+                <span style="width:40%;">
+
+                </span>
+                <span style="width:10%;">
+                    java版本
+                </span>
+                <span style="width: 40%;">
+
+                </span>
+            </li>
+            <li style="width: 100%; height: 40px; line-height: 40px;border-bottom: 1px black solid;">
+                <span style="width:20%;">
+
+                </span>
+                <span style="width:40%;">
+
+                </span>
+                <span style="width: 40%;">
+
+                </span>
+            </li> -->
+        </ul>
+    </div>
+    <div id="top">
+        <div id="right1">
+            <div id="son"
+                style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                    style="margin-left: 30px;">CPU使用率</b>
+            </div>
+            <div id="main"></div>
+        </div>
+        <div id="left1">
+            <div id="son51"
+                style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                    style="margin-left: 30px;">CPU使用率趋势</b>
+            </div>
+            <div id="main1"></div>
+        </div>
+    </div>
+    <div id="conter">
+        <div id="right2">
+            <div id="son2"
+                style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                    style="margin-left: 30px;">内存使用率趋势</b>
+            </div>
+            <div id="main2">
+
+            </div>
+        </div>
+        <div id="left2">
+            <div id="son3"
+                style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                    style="margin-left: 30px;">磁盘总使用率</b>
+            </div>
+            <div id="main3"></div>
+        </div>
+    </div>
+    <div id="button">
+        <div id="right3">
+            <div id="son4"
+                style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                    style="margin-left: 30px;">磁盘总使用率</b>
+            </div>
+            <div id="main4"></div>
+        </div>
+        <div id="left3">
+            <div id="main5">
+                <div id="son5"
+                    style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;"><b
+                        style="margin-left: 30px;">磁盘详细</b>
+                </div>
+                <div id="main5">
+                    <ul>
+                        <li
+                            style="color: gray;width: 95%; height: 40px;line-height: 40px;border-bottom: 1px rgb(187, 187, 187) solid;margin: 2.5%;">
+                            <strong style="margin-left: 25px;">文件系统名称</strong><strong
+                                style="margin-left: 25px;">挂载点或盘符</strong><strong
+                                style="margin-left: 25px;">文件系统类型</strong><strong
+                                style="margin-left: 25px;">磁盘分区总量</strong><strong
+                                style="margin-left: 25px;">磁盘分区可用</strong><strong
+                                style="margin-left: 25px;">磁盘分区已用</strong><strong
+                                style="margin-left: 25px;">分区使用比例</strong>
+                        </li>
+                        <li
+                            style="color: rgb(36, 36, 36);width: 95%; height: 40px;line-height: 40px; border-bottom: 1px rgb(187, 187, 187) solid;margin: 2.5%;">
+                            <strong style="margin-left: 50px;width: 80px;display: inline-block;">/</strong><strong
+                                style="margin-left: 30px;width: 80px;display: inline-block;">/</strong><strong
+                                style="margin-left: 30px;width: 80px;display: inline-block;">ext4</strong><strong
+                                style="margin-left: 25px;width: 80px;display: inline-block;">49.1
+                                GiB</strong><strong style="margin-left: 25px;width: 80px;display: inline-block;">36.7
+                                GiB</strong><strong style="margin-left: 25px;width: 80px;display: inline-block;">12.4
+                                GiB</strong><strong
+                                style="margin-left: 25px;width: 80px;display: inline-block;">25.20%</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body>
+    <script>
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        const gaugeData = [
+            {
+                value: 20,
+                name: 'internal storage',
+                title: {
+                    offsetCenter: ['0%', '0%']
+                },
+                detail: {
+                    valueAnimation: true,
+                    offsetCenter: ['0%', '10%']
+                }
+            },
+
+        ];
+        option = {
+            title: {
+                left: 'center',
+                text: 'Memory footprint'
+            },
+            series: [
+                {
+                    type: 'gauge',
+                    startAngle: 200,
+                    endAngle: -25,
+                    pointer: {
+                        show: false
+                    },
+                    progress: {
+                        show: true,
+                        overlap: false,
+                        roundCap: true,
+                        clip: false,
+                        itemStyle: {
+                            borderWidth: 1,
+                            borderColor: '#464646'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 40
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        distance: 0,
+                        length: 10
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false,
+                        distance: 50
+                    },
+                    data: gaugeData,
+                    title: {
+                        fontSize: 14
+                    },
+                    detail: {
+                        width: 50,
+                        height: 14,
+                        fontSize: 14,
+                        color: 'inherit',
+                        borderColor: 'inherit',
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        formatter: '{value}%'
+                    }
+                }
+            ]
+        };
+        setInterval(function () {
+            gaugeData[0].value = +(Math.random() * 100).toFixed(2);
+            myChart.setOption({
+                series: [
+                    {
+                        data: gaugeData,
+                        pointer: {
+                            show: false
+                        }
+                    }
+                ]
+            });
+        }, 2000);
+
+        option && myChart.setOption(option);
+    </script>
+    <script>
+        var chartDom1 = document.getElementById('main1');
+        var myChart1 = echarts.init(chartDom1);
+        var option1;
+
+        let base = +new Date(2023, 5, 3);
+        let oneDay = 24 * 3600 * 1000;
+        let valueBase = Math.random() * 300;
+        let valueBase2 = Math.random() * 50;
+        let data = [];
+        let data2 = [];
+        for (var i = 1; i < 10; i++) {
+            var now = new Date((base += oneDay));
+            var dayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
+            valueBase = Math.round((Math.random() - 0.5) * 20 + valueBase);
+            valueBase <= 0 && (valueBase = Math.random() * 300);
+            data.push([dayStr, valueBase]);
+            valueBase2 = Math.round((Math.random() - 0.5) * 20 + valueBase2);
+            valueBase2 <= 0 && (valueBase2 = Math.random() * 50);
+            data2.push([dayStr, valueBase2]);
+        }
+        option1 = {
+            title: {
+                left: 'center',
+                text: 'Tootip and dataZoom on Mobile Device'
+            },
+            legend: {
+                top: 'bottom',
+                data: ['Intention']
+            },
+            tooltip: {
+                triggerOn: 'none',
+                position: function (pt) {
+                    return [pt[0], 130];
+                }
+            },
+            toolbox: {
+                left: 'center',
+                itemSize: 25,
+                top: 55,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {}
+                }
+            },
+            xAxis: {
+                type: 'time',
+                axisPointer: {
+                    value: '2023-5-7',
+                    snap: true,
+                    lineStyle: {
+                        color: '#7581BD',
+                        width: 2
+                    },
+                    label: {
+                        show: true,
+                        formatter: function (params) {
+                            return echarts.format.formatTime('yyyy-MM-dd', params.value);
+                        },
+                        backgroundColor: '#7581BD'
+                    },
+                    handle: {
+                        show: true,
+                        color: '#7581BD'
+                    }
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisTick: {
+                    inside: true
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    inside: true,
+                    formatter: '{value}\n'
+                },
+                z: 10
+            },
+            grid: {
+                top: 110,
+                left: 15,
+                right: 15,
+                height: 160
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    throttle: 50
+                }
+            ],
+            series: [
+                {
+                    name: 'Fake Data',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    sampling: 'average',
+                    itemStyle: {
+                        color: '#0770FF'
+                    },
+                    stack: 'a',
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'rgba(58,77,233,0.8)'
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgba(58,77,233,0.3)'
+                            }
+                        ])
+                    },
+                    data: data
+                },
+                {
+                    name: 'Fake Data',
+                    type: 'line',
+                    smooth: true,
+                    stack: 'a',
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    sampling: 'average',
+                    itemStyle: {
+                        color: '#F2597F'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'rgba(213,72,120,0.8)'
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgba(213,72,120,0.3)'
+                            }
+                        ])
+                    },
+                    data: data2
+                }
+            ]
+        };
+
+        option1 && myChart1.setOption(option1);
+
+    </script>
+    <script>
+        var chartDom2 = document.getElementById('main2');
+        var myChart2 = echarts.init(chartDom2);
+        var option2;
+
+        const gaugeData2 = [
+            {
+                value: 40,
+                name: 'Good',
+                title: {
+                    offsetCenter: ['0%', '0%']
+                },
+                detail: {
+                    valueAnimation: true,
+                    offsetCenter: ['0%', '10%']
+                }
+            },
+        ];
+        option2 = {
+            title: {
+                left: 'center',
+                text: 'Memory footprint'
+            },
+            series: [
+                {
+                    type: 'gauge',
+                    startAngle: 200,
+                    endAngle: -25,
+                    pointer: {
+                        show: false
+                    },
+                    progress: {
+                        show: true,
+                        overlap: false,
+                        roundCap: true,
+                        clip: false,
+                        itemStyle: {
+                            borderWidth: 1,
+                            borderColor: '#464646'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 40
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        distance: 0,
+                        length: 10
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false,
+                        distance: 50
+                    },
+                    data: gaugeData,
+                    title: {
+                        fontSize: 14
+                    },
+                    detail: {
+                        width: 50,
+                        height: 14,
+                        fontSize: 14,
+                        color: 'inherit',
+                        borderColor: 'inherit',
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        formatter: '{value}%'
+                    }
+                }
+            ]
+        };
+        setInterval(function () {
+            gaugeData[0].value = +(Math.random() * 100).toFixed(2);
+
+            myChart2.setOption({
+                series: [
+                    {
+                        data: gaugeData,
+                        pointer: {
+                            show: false
+                        }
+                    }
+                ]
+            });
+        }, 2000);
+
+        option2 && myChart2.setOption(option2);
+    </script>
+    <script>
+        var chartDom3 = document.getElementById('main3');
+        var myChart3 = echarts.init(chartDom3);
+        var option3;
+
+        option3 = {
+            title: {
+                left: 'center',
+                text: 'Daily traffic consumption'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: [150, 230, 224, 218, 135, 147, 260],
+                    type: 'line'
+                }
+            ]
+        };
+
+        option3 && myChart3.setOption(option3);
+    </script>
+    <script>
+        var chartDom4 = document.getElementById('main4');
+        var myChart4 = echarts.init(chartDom4);
+        var option4;
+
+        const gaugeData4 = [
+            {
+                value: 60,
+                name: 'Commonly',
+                title: {
+                    offsetCenter: ['0%', '0%']
+                },
+                detail: {
+                    valueAnimation: true,
+                    offsetCenter: ['0%', '10%']
+                }
+            }
+        ];
+        option4 = {
+            title: {
+                left: 'center',
+                text: 'Memory footprint'
+            },
+            series: [
+                {
+                    type: 'gauge',
+                    startAngle: 200,
+                    endAngle: -25,
+                    pointer: {
+                        show: false
+                    },
+                    progress: {
+                        show: true,
+                        overlap: false,
+                        roundCap: true,
+                        clip: false,
+                        itemStyle: {
+                            borderWidth: 1,
+                            borderColor: '#464646'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 40
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        distance: 0,
+                        length: 10
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false,
+                        distance: 50
+                    },
+                    data: gaugeData,
+                    title: {
+                        fontSize: 14
+                    },
+                    detail: {
+                        width: 50,
+                        height: 14,
+                        fontSize: 14,
+                        color: 'inherit',
+                        borderColor: 'inherit',
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        formatter: '{value}%'
+                    }
+                }
+            ]
+        };
+        setInterval(function () {
+            gaugeData[0].value = +(Math.random() * 100).toFixed(2);
+            myChart4.setOption({
+                series: [
+                    {
+                        data: gaugeData,
+                        pointer: {
+                            show: false
+                        }
+                    }
+                ]
+            });
+        }, 2000);
+
+        option4 && myChart4.setOption(option4);
+    </script>
+</body>
+
+</html>
