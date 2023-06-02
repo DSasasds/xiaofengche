@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 90%;
+            width: 100%;
+            position: relative;
+        }
+
+        table {
+            width: 80%;
+            border-radius: 15px;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        thead {
+            background-image: linear-gradient(0deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        tr {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        button,
+        .js,
+        .as {
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: 1px solid gray;
+            background-image: linear-gradient(0deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        form {
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            background-color: rgb(181, 253, 253);
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            top: 0px;
+            margin: auto;
+
+            display: none;
+            padding: 10px;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ban">
+        <form action="#" name="carsare" id="form">
+            <h1 style="text-align: center; color: white">添加</h1>
+            茶叶名称：<input type="text" name="name" /><br />
+            茶叶类型：<input type="text" name="type" /><br />
+            茶叶价格：<input type="text" name="price" /><br />
+            茶叶库存：<input type="text" name="stock" /><br />
+            茶叶描述：<input type="text" name="description" /><br />
+
+            <input type="submit" class="js" value="提交" />
+            <input type="reset" class="as" value="取消" />
+
+        </form>
+        <button id="butt">添加</button>
+    </div>
+    <div>
+        <table border="1" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>茶叶名称</th>
+                    <th>茶叶类型</th>
+                    <th>茶叶价格</th>
+                    <th>茶叶库存</th>
+                    <th>茶叶描述</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="xuanran">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const xuanran = document.getElementById("xuanran");
+        const butt = document.getElementById("butt");
+        const form = document.getElementById("form");
+        const h1title = document.querySelector("h1")
+        const quxiao = document.querySelector(".as");
+        const js = document.querySelector(".js");
+        const carsare = document.getElementsByName("carsare")[0]
+        let xing = [], thisindex;
+        window.onload = function () {
+            quxiao.addEventListener("click", quxiaoFun);
+            butt.addEventListener("click", anniutianjia);
+            xuanran.addEventListener("click", shijianFun);
+            form.addEventListener("submit", tijiaoshujuFun);
+            //渲染
+            shangpinfun();
+        };
+        //取消
+        function quxiaoFun() {
+            form.style.display = "none";
+        };
+        //添加
+        function anniutianjia() {
+            h1title.innerHTML = "添加商品"
+            js.style.display = "inline-block";
+            quxiao.value = "取消"
+            form.style.display = " block";
+            form.reset()
+        };
+        //table里头的删改查时事件
+        function shijianFun() {
+            event.preventDefault();
+            console.log(event.target.innerHTML);
+            let id = event.target.dataset.id;
+            console.log(id);
+            thisindex = xing.findIndex((item) => { return item.id == id })
+            console.log(xing[thisindex]);
+            if (event.target.innerHTML == "修改") {
+                h1title.innerHTML = "修改商品信息"
+                form.style.display = " block"
+                form.name.value = xing[thisindex].name
+                form.type.value = xing[thisindex].type
+                form.price.value = xing[thisindex].price
+                console.log(form.price.value);
+                form.stock.value = xing[thisindex].stock
+                form.description.value = xing[thisindex].description
+                js.style.display = "inline-block";
+                quxiao.value = "取消"
+            };
+            if (event.target.nodeName == "BUTTON" && event.target.innerHTML == "删除" && confirm("确认要删除吗？")) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("DELETE", "https://liu.zzgoodqc.cn/teas/" + id);
+                xhr.send();
+                xhr.responseType = "json";
+                xhr.onload = function () {
+                    shangpinfun();
+                };
+            };
+            if (event.target.nodeName == "BUTTON" && event.target.innerHTML == "查看") {
+                form.style.display = "block";
+                h1title.innerHTML = "查看商品信息"
+                form.name.value = xing[thisindex].name
+                form.type.value = xing[thisindex].type
+                form.price.value = xing[thisindex].price
+                console.log(form.price.value);
+                form.stock.value = xing[thisindex].stock
+                form.description.value = xing[thisindex].description
+                js.style.display = "none";
+                quxiao.value = "退出查看"
+            };
+        };
+        //form添加或修改
+        function tijiaoshujuFun() {
+            event.preventDefault();
+            let data = new FormData(this);
+            if (h1title.innerHTML == "添加商品") {
+                const xhr = new XMLHttpRequest();
+                xhr.open("post", "https://liu.zzgoodqc.cn/teas");
+                xhr.send(data);
+                xhr.responseType = "json";
+                xhr.onload = function () {
+                    shangpinfun()
+                };
+            };
+            if (h1title.innerHTML == "修改商品信息") {
+                console.log(data.get("name"));
+                let obj = {
+                    name: data.get("name"),
+                    type: data.get("type"),
+                    price: data.get("price"),
+                    stock: data.get("stock"),
+                    description: data.get("description"),
+                };
+                console.log(xing);
+                console.log(xing[thisindex].id);
+                id = xing[thisindex].id;
+                // const xhr = new XMLHttpRequest();
+                // xhr.open("put", "https://liu.zzgoodqc.cn/teas/{id}");
+                // xhr.send();
+                // xhr.responseType = "json";
+                // xhr.onload = function () {
+                //     console.log(xing[thisindex].id);
+                //     shangpinfun();
+                // };
+                fetch("https://liu.zzgoodqc.cn/teas/" + id, {
+                    method: "put",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify(obj)
+                })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((res) => {
+                        console.log(res);
+                        shangpinfun()
+                    })
+            }
+        };
+
+        //更新列表
+        function shangpinfun() {
+            console.log(12);
+            const xhr = new XMLHttpRequest();
+            xhr.open("get", "https://liu.zzgoodqc.cn/teas");
+            xhr.send();
+            xhr.responseType = "json";
+            xhr.onload = function () {
+                xing = xhr.response.data
+                xunranfun();
+            };
+            form.style.display = " none";
+        };
+
+        //渲染列表 
+        function xunranfun() {
+            let html = "";
+            console.log(xing);
+            xing.forEach((item, index) => {
+                html += `
+            <tr>
+            <th>${item.id}</th>
+            <td>${item.name}</td>
+            <td>${item.type}</td>
+            <td>${item.price}￥</td>
+            <td>${item.stock}</td>
+            <td>${item.description}</td>
+            <td>${getduta(item.created_at)}</td>
+            <td>${getduta(item.updated_at)}</td>
+            <td>
+              <button data-id=${item.id}>删除</button>
+              <button data-id=${item.id}>修改</button>
+              <button data-id=${item.id}>查看</button>
+            </td>
+          </tr>
+            `;
+            });
+            xuanran.innerHTML = html;
+        };
+        //修改时间样式
+        function getduta(date) {
+            let date1 = new Date(date);
+            let year = date1.getFullYear();
+            let month = date1.getMonth() + 1;
+            let day = date1.getDate();
+            let hour = date1.getHours();
+            let minute = date1.getMinutes();
+            let second = date1.getSeconds();
+            return `${year}-${month}-${day}- ${hour}:${minute}:${second}`;
+        };
+    </script>
+</body>
+
+</html>
